@@ -1,0 +1,40 @@
+<div class="social-feedback__vw-present social-feedback__vw-location-default">
+    <div id="sfOverlay" class="social-feedback__vw-layer"></div>
+    <div class="social-feedback__vw-wrapper">
+
+        <div class="open__callme-block close" id="sfLinks">
+            {% for link in links %}
+                <div class="custom__callme">
+                    <a rel="noopener noreferrer" target="_blank" title="{{ link.title }}" href="{{ link.link }}" class="social-feedback__vw-main circle" style="background: {{ link.gradient }}">
+                        <div class="custom__callme-phone"
+                             style="background-image: url('{{ link.thumb }}')">
+                        </div>
+                        {% if link.title %}
+                            <span class="social-feedback__vw-title">
+            <span class="social-feedback__vw-trig"></span>
+            {{ link.title }}
+          </span>
+                        {% endif %}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="open__callme" id="sfToggle">
+            <div class="social-feedback__vw-main circle"
+                 style="background: {{ color }}">
+                <div class="social-feedback__vw-circle"
+                     style="border-color: {{ color }}"></div>
+                <div class="social-feedback__vw-circle-2"
+                     style="border-color: {{ color }}"></div>
+                <a href="#">
+                    <div class="open__callme-phone phone">
+                        <div class="front"></div>
+                        <div class="back"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>

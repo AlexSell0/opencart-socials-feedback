@@ -1,0 +1,376 @@
+/**
+ * Модуль: Socials Feedback
+ * Разработчик: AlexS
+ * Email: alexsell72@gmail.com
+ * GitHub: https://github.com/AlexSell0/opencart-socials-feedback
+ * Telegram: https://t.me/AlexS735
+ *
+ * @copyright  (c) 2024, AlexS
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
+ * @package Extension
+ * @version 1.0.0
+ */
+.social-feedback__vw-present {
+    display: inline-block;
+    position: fixed;
+    width: auto;
+    height: auto;
+    z-index: 99999;
+}
+
+.social-feedback__vw-layer {
+    display: none;
+    z-index: 99998;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 1;
+}
+
+.open__callme-block {
+    transform: scale(1);
+    z-index: 99995;
+}
+
+.open__callme-block.close {
+    display: none;
+}
+
+.open__callme-block.open {
+    display: block;
+}
+
+.open__callme {
+    transform: scale(1);
+    transition: 0.5s;
+    position: relative;
+    width: 60px;
+    height: 61px;
+    cursor: pointer;
+    z-index: 99990;
+}
+
+.custom__callme {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 7px auto;
+    z-index: 999999;
+}
+
+.open__callme:hover,
+.custom__callme:hover {
+    transform: scale(1.1);
+    transition: 1s;
+}
+
+.social-feedback__vw-title {
+    display: none;
+    position: absolute;
+    padding: 5px 5px 5px 10px;
+    border: 2px solid #fff;
+    background: #fff;
+    border-radius: 9px;
+    box-sizing: border-box;
+    z-index: 1;
+    cursor: default;
+    line-height: 18px;
+    font-size: 12px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.47);
+}
+
+.social-feedback__vw-trig {
+    top: 16px;
+    position: absolute;
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+}
+
+.social-feedback__vw-location-default {
+    bottom: 40px;
+    right: 40px;
+}
+
+.social-feedback__vw-location-default .social-feedback__vw-title {
+    top: 8px;
+    right: 90%;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    animation: widgetLeftRight-2 1s infinite ease-in-out;
+}
+
+.social-feedback__vw-location-default .social-feedback__vw-title .social-feedback__vw-trig {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    right: -6px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.custom__callme:hover .social-feedback__vw-title {
+    display: block;
+}
+
+.social-feedback__vw-main {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.open__callme:hover .social-feedback__vw-main,
+.custom__callme:hover .social-feedback__vw-main {
+    opacity: 1;
+}
+
+.custom__callme:hover .social-feedback__vw-trig,
+.custom__callme:hover .social-feedback__vw-title {
+    border-color: #ffffff;
+}
+
+.custom__callme:hover .custom__callme-phone {
+    animation: widgetResize 1s infinite ease-in-out;
+}
+
+.open__callme .open__callme-phone {
+    transition: 0.8s;
+    transform-style: preserve-3d;
+    position: relative;
+    animation: none;
+}
+
+.open__callme .open__callme-phone.front,
+.open__callme .open__callme-phone.back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.open__callme .open__callme-phone.front {
+    z-index: 2;
+}
+
+.open__callme .open__callme-phone.back {
+    transform: rotateY(180deg);
+}
+
+.open__callme-phone,
+.custom__callme-phone {
+    width: 40px;
+    height: 40px;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    position: absolute;
+    transform-origin: 50% 50% 0;
+    z-index: 99992;
+}
+
+.open__callme .social-feedback__vw-circle-2 {
+    border: 5px solid #2a6396;
+}
+
+.custom__callme .social-feedback__vw-circle-2 {
+    border: 5px solid #ffffff;
+}
+
+.open__callme-phone.phone {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsSAAALEgHS3X78AAACY0lEQVR42u2YTUhVQRTHTbNcVEhkYfBKhLSIBEEiciHkJohok4tC2qgUSJtAKCFUxNcy6FXoRlAEpa9NECW4cZW1qEWZpUEg+Fah4aJPPf0Pcx4M8z54Pp+eQWbgx+PembnMb+6ZOXNfAREVbAXUBxBEgojnqA8giAQRz1EfQBDZQJESsB1sy4C3IusZXF7F1EMiiGySSAUYBOPgEWgBxb6KnAdXwd4UdYfAAJgEs2Bafh+CA76IFIJe8JdMeZpmtktEKAJKQTuYA3HQoC2yA8QoucRStD0OPoDvYATUyf170ueCpkgjpS9NTlsOuTZwGzyRNv1S1yPXp7RErmQQ+Upmkbt9ItYkLIOXcs0huQj2aIjwDP7IIHPLaX+RzJrgEKsBu0WmU+o57G5oiHA2fpxG4ieZncxuz7N9ksxuxQJVEoIsUCSh9p7ykOVz6XQW/HMk4pS8RlxegXdgH5ndq0PEeGs+piHC2+9zR+R6Fv26wAIoA2/AsNz/Alo1RJh68McS6cuiz35QSybnTIAxuc9vp1tLhHlgiSyBo2voe0Lac176TCbBqolw1v5myQzm8IwiebuVmiLMOUtkBVxb74C0RJg7lswv0Jym3WEyi/qgryKFElZ2iZJZ3Ik2R8AnqZsBl3wUYfhbfcCR+QhukjkcTjl1nIfug12+iSSIUnKydK/t8gKU+yjCXAbzlH0Z8lWEqQajYDULEd4sVM5aa+E0eJZB4jUpHeNzYSeZfMN/RPy2JN5S6u8Xb0US8BnrDLhL5nukLJ/P30yRDUV9AEEkiHiO+gCCSBDxHPUBBJGtKvIfUoPjiAXkWegAAAAASUVORK5CYII=') no-repeat center center;
+}
+
+.open__callme-phone.message {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsSAAALEgHS3X78AAABkklEQVR42tWWvUoEMRRGN7OjiKI2voGggthsZWFjuQ9g4wMIsi9itbAgaG2n5Wol2Aj29lrYrY2gWIrGL5DB+DGT/2V04BS7k+Se5N4bpiOl7LRJq8H/nYDQuMZMVWAWFBaZwlM0WEAtuBQgW/hK+B77TGSOnRLJCyQg/lQXCMfut8ENuAZbjkV3wR24Amuu02x6yb8v5c/zCFYbgivRF2PsaWwNsMBI/n4mNRIq+BuNG7hqyjdXy+ACfBmLP4Ceft+nnX+CYUP3iBgBxQK4pR0+gU3wSsHPQOlzuj75Z4lzkvig30NL8GSBKh1jSkclcizdl5ZTwId18E4Cz2DFY27yCfQp51wTvWkKcJ+rY7+ndNjuCa8uEJbg3Ocq53O6JsxnYpGIEtiR9j5vuic2YgW69N+Ygtf1ed09cUJjur4CJUkcGYva+pzviYEteJNAJWEOVp9ih2BPuvt8HhyAfT3PWltBPZtAESuQQ8L6kZplkZQ5MbvJemqxCwiDUhfeoi66oJPKUWCCCJqfQyCJ1gW+AedXY8HfSsQvAAAAAElFTkSuQmCC') no-repeat center center;
+    background-size: 80%;
+}
+
+.custom__callme-phone {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 32px;
+    transition: transform .2s;
+}
+
+.open__callme .social-feedback__vw-main {
+    background: #6d7c65;
+}
+
+.custom__callme .social-feedback__vw-main {
+    background: #030729;
+}
+
+.social-feedback__vw-circle {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    -webkit-animation: widgetPulse infinite 2.5s;
+    animation: widgetPulse infinite 2.5s;
+    box-sizing: content-box;
+}
+
+.social-feedback__vw-circle-2 {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    animation: widgetPulse-2 2.5s infinite ease-in-out;
+    box-sizing: content-box;
+}
+
+.social-feedback__vw-main.circle,
+.social-feedback__vw-main.circle .social-feedback__vw-circle,
+.social-feedback__vw-main.circle .social-feedback__vw-circle-2 {
+    border-radius: 50%;
+    z-index: 99990;
+}
+
+.open__callme .social-feedback__vw-circle {
+    border: 1px solid #2a6396;
+}
+
+.custom__callme .social-feedback__vw-circle {
+    border: 1px solid #2CA5E0;
+}
+
+@media screen and (max-width: 460px) {
+    .open__callme,
+    .custom__callme {
+        width: 50px;
+        height: 60px;
+    }
+
+    .social-feedback__vw-main {
+        width: 50px;
+        height: 50px;
+        top: 20px;
+        left: 0px;
+    }
+
+    .social-feedback__vw-circle {
+        top: 15px;
+        left: 15px;
+    }
+
+    .social-feedback__vw-circle-2 {
+        top: -10px;
+        left: -10px;
+    }
+
+    .open__callme-phone,
+    .custom__callme-phone {
+        width: 40px;
+        height: 40px;
+        top: 5px;
+        left: 5px;
+    }
+
+    .social-feedback__vw-location-default {
+        bottom: 30px;
+        right: 20px;
+    }
+
+    .social-feedback__vw-location-default .social-feedback__vw-title {
+        top: 20px;
+    }
+}
+
+@-webkit-keyframes widgetPulse {
+    50% {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(2, 2);
+        transform: scale(2, 2);
+        opacity: 0;
+    }
+}
+
+@keyframes widgetPulse {
+    50% {
+        -webkit-transform: scale(1, 1);
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(2, 2);
+        transform: scale(2, 2);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes widgetPulse-2 {
+    0% {
+        transform: scale(2);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(0);
+        opacity: .5;
+    }
+}
+
+@keyframes widgetPulse-2 {
+    0% {
+        transform: scale(2);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(0);
+        opacity: .5;
+    }
+}
+
+@-webkit-keyframes widgetResize {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.7);
+    }
+}
+
+@keyframes widgetResize {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.7);
+    }
+}
+
+@keyframes widgetLeftRight-2 {
+    0%, 100% {
+        right: 90%;
+    }
+    35% {
+        right: 85%;
+    }
+    75% {
+        right: 90%;
+    }
+}
+
+@-webkit-keyframes widgetLeftRight-2 {
+    0%, 100% {
+        right: 90%;
+    }
+    35% {
+        right: 85%;
+    }
+    75% {
+        right: 90%;
+    }
+}

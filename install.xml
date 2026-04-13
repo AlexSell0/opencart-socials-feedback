@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>[AlexS] Socials Feedback Module</name>
+    <version>1.0.0</version>
+    <author>AlexSell</author>
+    <link>https://t.me/AlexS735</link>
+    <code>socials_feedback</code>
+
+    <!-- Целевой файл -->
+    <file path="catalog/controller/common/header.php">
+        <operation>
+            <search><![CDATA[$data['links'] = $this->document->getLinks();]]></search>
+            <add position="after"><![CDATA[
+        $data['socials_feedback'] = $this->load->controller('extension/module/socials_feedback');
+            ]]></add>
+        </operation>
+    </file>
+    <file path="catalog/view/theme/*/template/common/header.twig">
+        <operation>
+            <search><![CDATA[<body>]]></search>
+            <add position="after"><![CDATA[
+        {{ socials_feedback }}
+            ]]></add>
+        </operation>
+    </file>
+</modification>
